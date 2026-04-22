@@ -213,8 +213,17 @@
 
 <main>
   <div class="emoji">🔭</div>
-  <h1>Landing Soon</h1>
-  <small>Straw I/O offeres digital services and AI consultung</small>
+  <h1>Better Future, yes please!</h1>
+  <div class="copy">
+    <strong>At Straw I/O, we believe digital transformation is about building systems that think, adapt, and grow with you!</strong><br/>
+    <small>
+      That’s why we design future-facing digital services at the intersection of automation and AI integration—turning complexity into clarity and ambition into execution.
+    </small>
+    <br/>
+    <br/>
+    <strong>Let’s build it together.</strong><br/>
+    <small>If you’re ready to move beyond ideas and into action, we’re ready to talk.</small>
+  </div>
 </main>
 
 {#if showModal}
@@ -301,6 +310,17 @@
     animation: fadeIn 0.3s ease;
   }
 
+  .copy {
+    padding: 2.5rem;
+    width: 90%;
+    max-width: 480px;
+    text-align: left;
+    line-height: 2;
+  }
+  .copy strong {
+    color: #FFF;
+  }
+
   .modal {
     position: relative;
     background: rgba(255, 255, 255, 0.08);
@@ -317,7 +337,7 @@
 
   .modal h1 {
     font-size: 1.5rem;
-    margin: 0 0 1.5rem;
+    margin: 0.5rem 0 1.5rem;
     color: #c8e8ff;
   }
 
