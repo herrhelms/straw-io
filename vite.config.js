@@ -36,6 +36,7 @@ function devApiProxy() {
             body: JSON.stringify({
               email,
               attributes: { FIRSTNAME: name },
+              listIds: [5],
               updateEnabled: true,
             }),
           });
