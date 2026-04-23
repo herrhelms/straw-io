@@ -262,20 +262,18 @@ onMount(() => {
         }
     }
 
-    // Main loop — always update/draw both so particles fade out after mode switch
+    // Main loop
     function loop() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        swirlUpdate();
-        swirlDraw();
-        cometUpdate();
-        cometDraw();
+        if (mode === 1 || swirlParticles.length) { swirlUpdate(); swirlDraw(); }
+        if (mode === 2 || cometTrail.length) { cometUpdate(); cometDraw(); }
         requestAnimationFrame(loop);
     }
     loop();
 
     const modalTimer = setTimeout(() => {
         showModal = true;
-    }, 2500);
+    }, 7500);
 
     return () => {
         window.removeEventListener('resize', resize);
@@ -287,18 +285,17 @@ onMount(() => {
 <canvas bind:this={canvas}></canvas>
 
 <main>
-    <div class="emoji">🔭</div>
-    <h1>Straw I/O</h1>
-    <h2>Better future, yes please!</h2>
-    <div class="copy">
-        <strong>At Straw I/O, we believe digital transformation is about building systems that think, adapt, and grow with you!</strong><br/>
-        <small>
-            That’s why we design future-facing digital services at the intersection of automation and AI integration—turning complexity into clarity and ambition into execution.
-        </small>
-        <br/>
-        <br/>
-        <strong>Let’s build together.</strong><br/>
-        <small>If you’re ready to move beyond ideas and into action, we’re ready to talk.</small>
+    <div class="emoji stagger" style="--delay: 0s">🔭</div>
+    <h1 class="stagger" style="--delay: 0.15s">STRAW I/O</h1>
+    <h2 class="stagger" style="--delay: 0.3s">Better future, yes please!</h2>
+    <div class="copy stagger" style="--delay: 0.5s">
+        <p class="lead">At Straw I/O, we believe digital transformation is about building systems that think, adapt, and grow with you!</p>
+        <p class="body">
+            That’s why we design future-facing digital services at the intersection of automation and AI integration — turning complexity into clarity and ambition into execution.
+        </p>
+        <div class="divider"></div>
+        <p class="lead">Let’s build together.</p>
+        <p class="body">If you’re ready to move beyond ideas and into action, <a href="#contact" on:click|preventDefault={() => showModal = true}>we’re ready to talk.</a></p>
     </div>
 </main>
 
@@ -335,11 +332,21 @@ onMount(() => {
 {/if}
 
 <style>
+:global(html),
 :global(body) {
     margin: 0;
+    overflow: hidden;
+    overscroll-behavior: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+:global(body) {
     background: #020408;
     background: radial-gradient(ellipse at 30% 40%, #040e1e, #010204);
-    font-family: 'Lato', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 canvas {
@@ -367,25 +374,32 @@ main {
 }
 
 small {
-    color: #9aab97;
+    color: rgba(200, 232, 255, 0.42);
     margin-top: -0.2rem;
+    font-family: 'Rajdhani', sans-serif;
 }
 
 h1,
 h2 {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Orbitron', monospace;
     font-weight: 700;
 }
 
 h1 {
-    color: #FFF;
-    font-size: 1.5rem;
+    color: #c8e8ff;
+    font-size: 1.6rem;
+    letter-spacing: 6px;
+    text-shadow: 0 0 40px rgba(0, 200, 255, 0.6), 0 0 80px rgba(0, 200, 255, 0.3);
 }
 
 h2 {
-    color: #c8e8ff;
-    font-size: 1.3rem;
-    margin-top: 0.1rem;
+    color: rgba(200, 232, 255, 0.55);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
 }
 
 .overlay {
@@ -400,41 +414,86 @@ h2 {
 }
 
 .copy {
-    padding: 2.5rem;
+    padding: 2rem 2.5rem;
     width: 90%;
-    max-width: 480px;
+    max-width: 520px;
     text-align: left;
-    line-height: 2;
+    line-height: 1.8;
 }
 
-.copy strong {
-    color: #FFF;
+.copy .lead {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #c8e8ff;
+    letter-spacing: 0.5px;
+    margin: 0 0 0.4rem;
+}
+
+.copy .body {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    font-size: 0.95rem;
+    color: rgba(200, 232, 255, 0.5);
+    letter-spacing: 0.3px;
+    margin: 0 0 0.5rem;
+}
+
+.copy .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 200, 255, 0.25), transparent);
+    margin: 1.2rem 0;
+}
+
+.copy a {
+    color: #00c8ff;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 200, 255, 0.3);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.copy a:hover {
+    color: #fff;
+    border-bottom-color: #fff;
+    text-shadow: 0 0 12px rgba(0, 200, 255, 0.5);
 }
 sub {
-      color: #EEE;
-      font-size: 0.75rem;
-
+      color: rgba(200, 232, 255, 0.35);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.5px;
 }
 
 
 .modal {
     position: relative;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(20, 30, 45, 0.92);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 200, 255, 0.25);
     border-radius: 1rem;
     padding: 2.5rem;
     width: 90%;
     max-width: 380px;
     text-align: center;
     animation: slideUp 0.3s ease;
+    box-shadow:
+        0 0 15px rgba(0, 200, 255, 0.15),
+        0 0 60px rgba(0, 200, 255, 0.1),
+        0 0 120px rgba(0, 200, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .modal h1 {
-    font-size: 1.5rem;
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    letter-spacing: 3px;
     margin: 0.5rem 0 1.5rem;
     color: #c8e8ff;
+}
+
+.modal small {
+    color: #FFF;
 }
 
 .close {
@@ -461,12 +520,14 @@ form {
 
 input {
     background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(0, 180, 255, 0.13);
     border-radius: 0.5rem;
     padding: 0.75rem 1rem;
     color: #c8e8ff;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
     font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
     outline: none;
     transition: border-color 0.2s;
 }
@@ -484,16 +545,20 @@ button[type="submit"] {
     border: 1px solid rgba(0, 200, 255, 0.3);
     border-radius: 0.5rem;
     padding: 0.75rem;
-    color: #c8e8ff;
-    font-family: 'Lato', sans-serif;
+    color: #00c8ff;
+    font-family: 'Rajdhani', sans-serif;
     font-size: 1rem;
     font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.25s ease;
 }
 
 button[type="submit"]:hover:not(:disabled) {
     background: rgba(0, 200, 255, 0.25);
+    box-shadow: 0 0 18px rgba(0, 200, 255, 0.28);
+    transform: translateY(-1px);
 }
 
 button[type="submit"]:disabled {
@@ -565,6 +630,20 @@ button[type="submit"]:disabled {
 
     to {
         transform: scale(1);
+    }
+}
+
+.stagger {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: staggerIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: var(--delay, 0s);
+}
+
+@keyframes staggerIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 </style>
