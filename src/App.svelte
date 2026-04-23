@@ -273,7 +273,7 @@ onMount(() => {
 
     const modalTimer = setTimeout(() => {
         showModal = true;
-    }, 7500);
+    }, 8000);
 
     return () => {
         window.removeEventListener('resize', resize);
@@ -306,16 +306,16 @@ onMount(() => {
     <div class="modal" on:click|stopPropagation>
         {#if success}
         <div class="success">
-            <div class="checkmark">✓</div>
-            <h1>🙌 Thank you!</h1>
-            <p>Soon you'll be hearing from us.</p>
+            <div class="emoji">🙌</div>
+            <h1>Thank you!</h1>
+            <p>We're excited to get to know you. <br/>You will hear from us soon.</p>
         </div>
         {:else}
         <button class="close" on:click={() => showModal = false}>✕</button>
 
         <div class="emoji-xs">👋</div>
         <h1>Hi there!</h1>
-        <small>Let us know how we can call and reach you! <br/>We’ll reach out shortly to set up a time for an in-person meeting.<br/><br/><br/></small>
+        <small>Let us know how we can call you! We’ll reach out shortly<br/>to set up a time for an in-person meeting.<br/><br/><br/></small>
         <form on:submit|preventDefault={handleSubmit}>
             <input type="text" placeholder="Your name" bind:value={name} required />
             <input type="email" placeholder="Your email" bind:value={email} required />
@@ -458,9 +458,9 @@ h2 {
     text-shadow: 0 0 12px rgba(0, 200, 255, 0.5);
 }
 sub {
-      color: rgba(200, 232, 255, 0.35);
+      color: rgba(232, 232, 255, 0.85);
       font-family: 'Rajdhani', sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.70rem;
       letter-spacing: 0.5px;
 }
 
