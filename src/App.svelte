@@ -467,13 +467,14 @@ sub {
 
 .modal {
     position: relative;
-    background: rgba(20, 30, 45, 0.92);
+    background: rgba(4, 10, 22, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(0, 200, 255, 0.25);
     border-radius: 1rem;
-    padding: 2.5rem;
-    width: 90%;
+    padding: 1.5rem;
+    margin: 1.5rem;
+    width: calc(90% - 3rem);
     max-width: 380px;
     text-align: center;
     animation: slideUp 0.3s ease;
