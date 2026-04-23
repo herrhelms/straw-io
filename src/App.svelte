@@ -332,17 +332,17 @@ onMount(() => {
 {/if}
 
 <style>
-:global(html),
-:global(body) {
-    margin: 0;
+:global(html) {
+    height: 100%;
     overflow: hidden;
     overscroll-behavior: none;
-    position: fixed;
-    width: 100%;
-    height: 100%;
+    background: #020408;
 }
 :global(body) {
-    background: #020408;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
     background: radial-gradient(ellipse at 30% 40%, #040e1e, #010204);
     font-family: 'Rajdhani', sans-serif;
     -webkit-font-smoothing: antialiased;
