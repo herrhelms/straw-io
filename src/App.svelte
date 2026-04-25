@@ -401,8 +401,9 @@ main {
     width: 90%;
     max-width: 640px;
     margin: 0 auto;
-    padding: 0 1.5rem 6rem;
+    padding-bottom: 6rem;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .products h3 {
