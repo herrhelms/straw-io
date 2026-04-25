@@ -289,18 +289,19 @@ onMount(() => {
     <h1 class="stagger" style="--delay: 0.15s">STRAW I/O</h1>
     <h2 class="stagger" style="--delay: 0.3s">Better future, yes please!</h2>
     <div class="copy stagger" style="--delay: 0.5s">
-        <p class="lead">At Straw I/O, we believe digital transformation is about building systems that think, adapt, and grow with you!</p>
+        <p class="lead">At Straw I/O we understand how fast things are changing and we build systems that adapt and grow with you, so your business stays ahead.</p>
         <p class="body">
-            That’s why we design future-facing digital services at the intersection of automation and AI integration — turning complexity into clarity and ambition into execution.
+            That’s why we design future-facing digital services at the intersection of automation and AI integration — turning complexity into clarity and ambition into execution. We help you to onboard to modern tools that aim to support and improve your day to day operations.
         </p>
         <div class="divider"></div>
         <p class="lead">Let’s build together.</p>
-        <p class="body">If you’re ready to move beyond ideas and into action, <a href="#contact" on:click|preventDefault={() => showModal = true}>we’re ready to talk.</a></p>
+        <p class="body">We build software that keeps up with change, so that you and your business don’t fall behind. Do you feel the need to take action? <a href="#contact" on:click|preventDefault={() => showModal = true}>We’re here to talk.</a></p>
     </div>
 </main>
 
 <section class="products stagger" style="--delay: 0.7s">
-    <h3>How we get you there</h3>
+            <div class="emoji emoji-xs">🚀</div>
+    <h3>The propulsion system</h3>
     <div class="product-grid">
         <div class="product-card">
             <span class="product-emoji">🤖</span>
@@ -522,10 +523,10 @@ footer {
     text-align: center;
     padding: 3rem 0 2.5rem;
     font-family: 'Rajdhani', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: 400;
     letter-spacing: 1px;
-    color: rgba(200, 232, 255, 0.25);
+    color: rgba(200, 232, 255, 0.85);
 }
 
 .emoji {
