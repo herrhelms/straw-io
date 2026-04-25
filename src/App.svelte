@@ -273,7 +273,7 @@ onMount(() => {
 
     const modalTimer = setTimeout(() => {
         showModal = true;
-    }, 8000);
+    }, 20000);
 
     return () => {
         window.removeEventListener('resize', resize);
@@ -298,6 +298,38 @@ onMount(() => {
         <p class="body">If you’re ready to move beyond ideas and into action, <a href="#contact" on:click|preventDefault={() => showModal = true}>we’re ready to talk.</a></p>
     </div>
 </main>
+
+<section class="products stagger" style="--delay: 0.7s">
+    <h3>How we get you there</h3>
+    <div class="product-grid">
+        <div class="product-card">
+            <span class="product-emoji">🤖</span>
+            <h4>AI Plugins</h4>
+            <span class="badge">Extend your workflows</span>
+            <p>Custom plugins that connect AI directly to your internal tools, automating tasks and accelerating everyday operations.</p>
+        </div>
+        <div class="product-card">
+            <span class="product-emoji">⚡</span>
+            <h4>Process Automation</h4>
+            <span class="badge">Move faster</span>
+            <p>Production-grade pipelines that connect your systems and deliver the data you need—without delays or manual steps.</p>
+        </div>
+        <div class="product-card">
+            <span class="product-emoji">🔌</span>
+            <h4>Agentic Servers</h4>
+            <span class="badge">Connect everything</span>
+            <p>Intelligent server endpoints that link AI models to your APIs, tools, datasets, and external services.</p>
+        </div>
+        <div class="product-card coming-soon">
+            <span class="product-emoji">🕵️‍♀️</span>
+            <h4>InspectorDB</h4>
+            <span class="badge orange">Coming soon</span>
+            <p>A database engine designed for the AI era—fast, flexible, and optimized for how agents access and use data.</p>
+        </div>
+    </div>
+</section>
+
+<footer>Built with ♥️ © 2026</footer>
 
 {#if showModal}
 <!-- svelte-ignore a11y_no_static_element_interactions a11y_click_events_have_key_events -->
@@ -333,16 +365,12 @@ onMount(() => {
 
 <style>
 :global(html) {
-    height: 100%;
-    overflow: hidden;
-    overscroll-behavior: none;
     background: #020408;
 }
 :global(body) {
     margin: 0;
-    height: 100%;
-    overflow: hidden;
-    overscroll-behavior: none;
+    min-height: 100vh;
+    overflow-x: hidden;
     background: radial-gradient(ellipse at 30% 40%, #040e1e, #010204);
     font-family: 'Rajdhani', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -363,6 +391,140 @@ main {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    position: relative;
+    z-index: 2;
+}
+
+.products {
+    position: relative;
+    z-index: 2;
+    width: 90%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 1.5rem 6rem;
+    text-align: center;
+}
+
+.products h3 {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(200, 232, 255, 0.45);
+    margin-bottom: 2rem;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid rgba(0, 200, 255, 0.15);
+    border-radius: 1.25rem;
+    overflow: hidden;
+}
+
+.product-card {
+    padding: 2rem 1.5rem;
+    position: relative;
+}
+
+/* Internal grid lines */
+.product-card:nth-child(1) {
+    border-right: 1px solid rgba(0, 200, 255, 0.15);
+    border-bottom: 1px solid rgba(0, 200, 255, 0.15);
+}
+.product-card:nth-child(2) {
+    border-bottom: 1px solid rgba(0, 200, 255, 0.15);
+}
+.product-card:nth-child(3) {
+    border-right: 1px solid rgba(0, 200, 255, 0.15);
+}
+
+.product-emoji {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 0.6rem;
+}
+
+.product-card h4 {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: #c8e8ff;
+    margin: 0 0 0.5rem;
+}
+
+.product-card p {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(200, 232, 255, 0.6);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.product-card.coming-soon {
+    opacity: 0.6;
+}
+
+.badge {
+    display: inline-block;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(0, 200, 255, 0.7);
+    border: 1px solid rgba(0, 200, 255, 0.2);
+    border-radius: 2rem;
+    padding: 0.15rem 0.65rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.badge.orange {
+    border: 1px solid rgba(207, 143, 46, 0.867);
+    color: rgba(207, 143, 46, 0.767);
+}
+
+.product-card:hover .badge {
+    color: rgba(0, 200, 255, 1);
+    border-color: rgba(0, 200, 255, 0.5);
+    box-shadow: 0 0 12px rgba(0, 200, 255, 0.3);
+}
+
+.product-card:hover .badge.orange {
+    color: rgba(207, 143, 46, 1);
+    border-color: rgba(207, 143, 46, 0.7);
+    box-shadow: 0 0 12px rgba(207, 143, 46, 0.3);
+}
+
+@media (max-width: 520px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+    .product-card:nth-child(1),
+    .product-card:nth-child(2),
+    .product-card:nth-child(3) {
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 200, 255, 0.15);
+    }
+    .product-card:nth-child(4) {
+        border-bottom: none;
+    }
+}
+
+footer {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 3rem 0 2.5rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: rgba(200, 232, 255, 0.25);
 }
 
 .emoji {
