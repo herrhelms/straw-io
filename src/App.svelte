@@ -389,6 +389,7 @@ onMount(() => {
     min-height: 100vh;
     overflow-x: hidden;
     background: radial-gradient(ellipse at 30% 40%, #040e1e, #010204);
+    user-select: none;
     font-family: 'Rajdhani', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -402,7 +403,6 @@ canvas {
 }
 
 main {
-    user-select: none;
     display: flex;
     flex-direction: column;
     align-items: center;
