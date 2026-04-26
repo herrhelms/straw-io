@@ -271,12 +271,18 @@ onMount(() => {
     }
     loop();
 
-    const modalTimer = setTimeout(() => {
-        showModal = true;
-    }, 20000);
+    let modalTimer;
+    function onScroll() {
+        const scrolledToBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
+        if (scrolledToBottom && !modalTimer) {
+            modalTimer = setTimeout(() => { showModal = true; }, 15000);
+        }
+    }
+    window.addEventListener('scroll', onScroll);
 
     return () => {
         window.removeEventListener('resize', resize);
+        window.removeEventListener('scroll', onScroll);
         clearTimeout(modalTimer);
     };
 });
