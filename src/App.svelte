@@ -652,6 +652,7 @@ sub {
 .modal h1 {
     font-family: 'Orbitron', monospace;
     font-size: 1.1rem;
+    font-weight: 700; 
     letter-spacing: 3px;
     margin: 0.5rem 0 1.5rem;
     color: #c8e8ff;
