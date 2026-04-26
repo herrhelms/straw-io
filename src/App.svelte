@@ -578,7 +578,7 @@ h2 {
 }
 
 .copy {
-    padding: 2rem 2.5rem;
+    padding: 2rem 1.5rem;
     width: 90%;
     max-width: 520px;
     text-align: left;
