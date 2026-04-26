@@ -355,7 +355,7 @@ onMount(() => {
             <div class="emoji">🙌</div>
             <h1>Thank you!</h1>
             <p>We're excited to get to know you. <br/>You will hear from us soon.</p>
-            <button class="close" on:click={() => showModal = false}>close</button>
+            <button class="close" on:click={() => showModal = false}>✕</button>
         </div>
         {:else}
         <button class="close" on:click={() => showModal = false}>✕</button>
