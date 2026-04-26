@@ -10,9 +10,13 @@ let email = '';
 let submitting = false;
 let success = false;
 let error = '';
+let comment = '';
+let website = '';
+
+$: document.body.style.overflow = showModal ? 'hidden' : '';
 
 async function handleSubmit() {
-    if (!email || !name) return;
+    if (!email || !name || website) return;
     submitting = true;
     error = '';
     try {
@@ -23,12 +27,15 @@ async function handleSubmit() {
             },
             body: JSON.stringify({
                 name,
-                email
+                email,
+                comment,
+                website,
             }),
         });
         const data = await res.json();
         if (data.ok) {
             success = true;
+            if (typeof umami !== 'undefined') umami.track('form-submit', { name, comment });
         } else {
             error = data.error || 'Something went wrong';
         }
@@ -340,7 +347,7 @@ onMount(() => {
 
 {#if showModal}
 <!-- svelte-ignore a11y_no_static_element_interactions a11y_click_events_have_key_events -->
-<div class="overlay" on:click={() => { if (!success) showModal = false; }}>
+<div class="overlay" on:click={() => showModal = false}>
     <!-- svelte-ignore a11y_no_static_element_interactions a11y_click_events_have_key_events -->
     <div class="modal" on:click|stopPropagation>
         {#if success}
@@ -348,16 +355,19 @@ onMount(() => {
             <div class="emoji">🙌</div>
             <h1>Thank you!</h1>
             <p>We're excited to get to know you. <br/>You will hear from us soon.</p>
+            <button class="close" on:click={() => showModal = false}>close</button>
         </div>
         {:else}
         <button class="close" on:click={() => showModal = false}>✕</button>
-
-        <div class="emoji-xs">👋</div>
-        <h1>Hi there!</h1>
-        <small>Let us know how we can call you! We’ll reach out shortly<br/>to set up a time for an in-person meeting.<br/><br/><br/></small>
+        <div class="modal-heading">
+            <div class="emoji-xs">👋</div>
+        </div>
+        <small><strong>Hi there,</strong> let us know how we may address you! We believe it's always best to chat in person. So we’ll be reaching out shortly to set up a time for an in-person meeting.<br/><br/><br/></small>
         <form on:submit|preventDefault={handleSubmit}>
             <input type="text" placeholder="Your name" bind:value={name} required />
             <input type="email" placeholder="Your email" bind:value={email} required />
+            <textarea placeholder="Anything you'd like us to know? (optional)" bind:value={comment} rows="3"></textarea>
+            <input type="text" bind:value={website} class="hp" tabindex="-1" autocomplete="off" />
             {#if error}<p class="error">{error}</p>{/if}
             <button type="submit" disabled={submitting}>
                 {submitting ? 'Sending...' : 'Send'}
@@ -539,8 +549,14 @@ footer {
     font-size: 6rem;
     line-height: 1;
 }
+.modal-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
 .emoji-xs {
-    font-size: 4rem;
+    font-size: 3.75rem;
 }
 
 small {
@@ -576,6 +592,8 @@ h2 {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -690,7 +708,7 @@ form {
     gap: 0.75rem;
 }
 
-input {
+input, textarea {
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(0, 180, 255, 0.13);
     border-radius: 0.5rem;
@@ -704,11 +722,26 @@ input {
     transition: border-color 0.2s;
 }
 
-input::placeholder {
+textarea {
+    resize: vertical;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.hp {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    height: 0;
+    width: 0;
+    pointer-events: none;
+}
+
+input::placeholder, textarea::placeholder {
     color: rgba(200, 232, 255, 0.35);
 }
 
-input:focus {
+input:focus, textarea:focus {
     border-color: rgba(0, 200, 255, 0.4);
 }
 
